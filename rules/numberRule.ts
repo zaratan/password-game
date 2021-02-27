@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import RuleType from './RuleType';
 
 const useNumberRule: () => RuleType = () => ({

@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 import useConfirmRule from '../rules/confirmRule';
 import useLengthRule from '../rules/lengthRule';
 import useNumberRule from '../rules/numberRule';
