@@ -13,11 +13,11 @@ export default function Home() {
       </Head>
       <header />
 
-      <main className="flex w-full">
-        <section className="w-2/3 p-4">
+      <main className="flex w-full flex-col-reverse md:flex-row px-8 md:px-0">
+        <section className="md:w-2/3 lg:w-1/2 md:max-w-lg md:p-4 md:pr-5 border-t pt-5 md:pt-0 md:border-t-0 md:border-r border-solid">
           <Form />
         </section>
-        <aside className="w-1/3">
+        <aside className="pb-5 md:pb-0 md:pl-5">
           Rules + Timer
           <ul>
             {activeRules.map((activeRule) => (
