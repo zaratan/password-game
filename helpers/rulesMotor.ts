@@ -6,6 +6,8 @@ import useParentheseManyTypesRule from '../rules/easy/parentheseManyTypesRule';
 import useParentheseNonContiguousRule from '../rules/easy/parentheseNonContiguousRule';
 import useAnswerToLifeRule from '../rules/fun/answerToLifeRule';
 import useDHMORule from '../rules/fun/dhmoRule';
+import useFirstFourCreditCardRule from '../rules/fun/fourFirstCreditCardRule';
+import useLostTheGameRule from '../rules/fun/lostTheGameRule';
 import useRespectRule from '../rules/fun/respectRule';
 import useRomanNumberDayRule from '../rules/fun/romanNumberDayRule';
 import useTurtleRule from '../rules/fun/turtleRule';
@@ -37,6 +39,8 @@ const FunRules = [
   useRomanNumberDayRule,
   useTurtleRule,
   useXKCDRule,
+  useLostTheGameRule,
+  useFirstFourCreditCardRule,
 ];
 
 const EasyRules = [
