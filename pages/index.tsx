@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import Form from '../components/Form';
+import Timer from '../components/Timer';
 import RulesContext from '../contexts/RulesContext';
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
           <Form />
         </section>
         <aside className="pb-5 md:pb-0 md:pl-5">
-          Rules + Timer
+          <Timer />
           <ul>
             {activeRules.map((activeRule) => (
               <li>

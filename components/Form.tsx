@@ -1,14 +1,42 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import RulesContext from '../contexts/RulesContext';
+import ScoreContext from '../contexts/ScoreContext';
+import TimeContext from '../contexts/TimeContext';
 import PasswordInput from './PasswordInput';
 import Submit from './Submit';
 
+// Time context change VERY often so we can't re-render the whole form
+const FromWrap = ({
+  valid,
+  children,
+}: {
+  valid: boolean;
+  children: ReactNode;
+}) => {
+  const { registerNewTime } = useContext(ScoreContext);
+  const { time, resetTime } = useContext(TimeContext);
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (valid) {
+      registerNewTime(time);
+      resetTime();
+    }
+  };
+  return <form onSubmit={submit}>{children}</form>;
+};
+
 const Form = () => {
-  const [textVisible, setTextVisible] = useState(false);
   const [textValue, setTextValue] = useState('');
-  const [confirmTextVisible, setConfirmTextVisible] = useState(false);
   const [valid, setValid] = useState(false);
+
+  const {
+    passwordVisible,
+    confirmationVisible,
+    toggleConfirmationVisible,
+    togglePasswordVisible,
+  } = useContext(ScoreContext);
   const {
     checkNewPassword,
     passwordConfirmText,
@@ -27,29 +55,35 @@ const Form = () => {
   };
 
   return (
-    <form className="">
+    <FromWrap valid={valid}>
+      {/* Prevents browser autofill */}
+      <input type="text" className="w-0 h-0 absolute left-0 top-0 invisible" />
+      <input
+        type="password"
+        className="w-0 h-0 absolute left-0 top-0 invisible"
+      />
       <PasswordInput
         changeValue={changePassword}
         label="Password"
         name="main"
-        textVisible={textVisible}
+        textVisible={passwordVisible}
         value={textValue}
-        toggleTextVisibility={() => setTextVisible(!textVisible)}
+        toggleTextVisibility={togglePasswordVisible}
+        visibleMultiplicator={4}
       />
       {confirmable ? (
         <PasswordInput
           changeValue={changeConfirm}
           label="Confirmation"
           name="confirm"
-          textVisible={confirmTextVisible}
+          textVisible={confirmationVisible}
           value={passwordConfirmText}
-          toggleTextVisibility={() =>
-            setConfirmTextVisible(!confirmTextVisible)
-          }
+          toggleTextVisibility={toggleConfirmationVisible}
+          visibleMultiplicator={2}
         />
       ) : null}
       <Submit valid={valid} />
-    </form>
+    </FromWrap>
   );
 };
 

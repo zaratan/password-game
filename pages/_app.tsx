@@ -3,12 +3,10 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import 'tailwindcss/tailwind.css';
 import { RulesProvider } from '../contexts/RulesContext';
+import { ScoreProvider } from '../contexts/ScoreContext';
+import { TimeProvider } from '../contexts/TimeContext';
 
-const WrappedApp = ({ Component, pageProps }: AppProps) => (
-  <Component {...pageProps} />
-);
-
-function MyApp(appProps: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
@@ -17,9 +15,13 @@ function MyApp(appProps: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <RulesProvider>
-        <WrappedApp {...appProps} />
-      </RulesProvider>
+      <ScoreProvider>
+        <RulesProvider>
+          <TimeProvider>
+            <Component {...pageProps} />
+          </TimeProvider>
+        </RulesProvider>
+      </ScoreProvider>
     </>
   );
 }
