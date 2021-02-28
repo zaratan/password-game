@@ -18,6 +18,11 @@ import RuleType from '../rules/RuleType';
 import useRespectRule from '../rules/fun/respectRule';
 import usePalindromeRule from '../rules/fun/palindromeRule';
 import useAnswerToLifeRule from '../rules/fun/answerToLifeRule';
+import useMatchingParentheseRule from '../rules/hard/matchingParentheseRule';
+import useParentheseManyTypesRule from '../rules/easy/parentheseManyTypesRule';
+import useParentheseNonContiguousRule from '../rules/easy/parentheseNonContiguousRule';
+import useNotTwoIdenticalCharsRule from '../rules/easy/notTwoIdenticalCharsRule';
+import useCurrentYearRule from '../rules/easy/currentYearRule';
 
 type ContextType = {
   activeRules: Array<RuleType>;
@@ -51,8 +56,14 @@ const StandardRules = [
   useLowcaseRule,
   usePunctuationRule,
 ];
-const FunRules = [useRespectRule, usePalindromeRule, useAnswerToLifeRule];
-// const HardRules = [];
+const FunRules = [useRespectRule, useAnswerToLifeRule];
+const EasyRules = [
+  useParentheseManyTypesRule,
+  useParentheseNonContiguousRule,
+  useNotTwoIdenticalCharsRule,
+  useCurrentYearRule,
+];
+const HardRules = [useMatchingParentheseRule, usePalindromeRule];
 
 export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [passwordConfirmText, setPasswordConfirmText] = useState('');
@@ -66,8 +77,10 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const resetRules = useCallback(() => {
     const [act, ...unused] = [
       ...sampleSize(StandardRules, 4).map((e) => e()),
+      ...sampleSize(EasyRules, 2).map((e) => e()),
       ...sampleSize(FunRules, 1).map((e) => e()),
       confirmRule,
+      ...sampleSize(HardRules, 1).map((e) => e()),
     ];
     setActiveRules([act]);
     setUnusedRules(unused);
