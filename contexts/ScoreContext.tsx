@@ -6,6 +6,7 @@ type ContextType = {
   togglePasswordVisible: () => void;
   confirmationVisible: boolean;
   toggleConfirmationVisible: () => void;
+  setConfirmationVisible: (visible: boolean) => void;
   registerNewTime: (newTime: number) => void;
   bestTime?: number;
 };
@@ -17,6 +18,9 @@ const defaultContext: ContextType = {
   },
   confirmationVisible: false,
   toggleConfirmationVisible: () => {
+    throw new Error('SHOULD BE OVERRIDEN');
+  },
+  setConfirmationVisible: () => {
     throw new Error('SHOULD BE OVERRIDEN');
   },
   bestTime: null,
@@ -46,6 +50,7 @@ export const ScoreProvider = ({ children }: { children: ReactNode }) => {
     confirmationVisible,
     passwordVisible,
     toggleConfirmationVisible,
+    setConfirmationVisible,
     togglePasswordVisible,
     bestTime,
     registerNewTime,

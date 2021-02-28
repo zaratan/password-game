@@ -18,7 +18,7 @@ const FromWrap = ({
   changeConfirm: (text: string) => void;
   children: ReactNode;
 }) => {
-  const { registerNewTime } = useContext(ScoreContext);
+  const { registerNewTime, setConfirmationVisible } = useContext(ScoreContext);
   const { time, resetTime } = useContext(TimeContext);
   const { resetRules } = useContext(RulesContext);
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +29,7 @@ const FromWrap = ({
       resetTime();
       changePassword('');
       changeConfirm('');
+      setConfirmationVisible(false);
       resetRules();
     }
   };

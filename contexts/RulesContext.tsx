@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { sampleSize } from 'lodash';
+import { sampleSize, shuffle } from 'lodash';
 import React, {
   createContext,
   useState,
@@ -16,13 +16,20 @@ import useNumberRule from '../rules/standard/numberRule';
 import usePunctuationRule from '../rules/standard/punctuationRule';
 import RuleType from '../rules/RuleType';
 import useRespectRule from '../rules/fun/respectRule';
-import usePalindromeRule from '../rules/fun/palindromeRule';
+import usePalindromeRule from '../rules/hard/palindromeRule';
 import useAnswerToLifeRule from '../rules/fun/answerToLifeRule';
 import useMatchingParentheseRule from '../rules/hard/matchingParentheseRule';
 import useParentheseManyTypesRule from '../rules/easy/parentheseManyTypesRule';
 import useParentheseNonContiguousRule from '../rules/easy/parentheseNonContiguousRule';
 import useNotTwoIdenticalCharsRule from '../rules/easy/notTwoIdenticalCharsRule';
 import useCurrentYearRule from '../rules/easy/currentYearRule';
+import useCurrentMinutesRule from '../rules/medium/currentMinutesRule';
+import useKanjiRule from '../rules/medium/kanjiRule';
+import usePiDecimalRule from '../rules/medium/piDecimalRule';
+import useDHMORule from '../rules/fun/dhmoRule';
+import useRomanNumberDayRule from '../rules/fun/romanNumberDayRule';
+import useTurtleRule from '../rules/fun/turtleRule';
+import useXKCDRule from '../rules/fun/xkcdRule';
 
 type ContextType = {
   activeRules: Array<RuleType>;
@@ -56,7 +63,14 @@ const StandardRules = [
   useLowcaseRule,
   usePunctuationRule,
 ];
-const FunRules = [useRespectRule, useAnswerToLifeRule];
+const FunRules = [
+  useRespectRule,
+  useAnswerToLifeRule,
+  useDHMORule,
+  useRomanNumberDayRule,
+  useTurtleRule,
+  useXKCDRule,
+];
 const EasyRules = [
   useParentheseManyTypesRule,
   useParentheseNonContiguousRule,
@@ -64,6 +78,7 @@ const EasyRules = [
   useCurrentYearRule,
 ];
 const HardRules = [useMatchingParentheseRule, usePalindromeRule];
+const MediumRules = [useCurrentMinutesRule, useKanjiRule, usePiDecimalRule];
 
 export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [passwordConfirmText, setPasswordConfirmText] = useState('');
@@ -76,11 +91,13 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
 
   const resetRules = useCallback(() => {
     const [act, ...unused] = [
-      ...sampleSize(StandardRules, 4).map((e) => e()),
-      ...sampleSize(EasyRules, 2).map((e) => e()),
-      ...sampleSize(FunRules, 1).map((e) => e()),
-      confirmRule,
-      ...sampleSize(HardRules, 1).map((e) => e()),
+      ...sampleSize(StandardRules, 3).map((e) => e()),
+      ...shuffle([
+        ...sampleSize(EasyRules, 2).map((e) => e()),
+        ...sampleSize(FunRules, 3).map((e) => e()),
+        ...sampleSize(MediumRules, 2).map((e) => e()),
+        ...sampleSize([...HardRules, () => confirmRule], 1).map((e) => e()),
+      ]),
     ];
     setActiveRules([act]);
     setUnusedRules(unused);
