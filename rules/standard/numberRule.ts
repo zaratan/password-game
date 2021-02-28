@@ -7,6 +7,7 @@ const useNumberRule: () => RuleType = () => ({
     return /\d/.test(text);
   },
   title: 'Your password must contain a number',
+  id: 'number-simple',
 });
 
 export default useNumberRule;

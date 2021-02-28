@@ -5,6 +5,7 @@ const useParentheseManyTypesRule: () => RuleType = () => ({
   checkFn: (text: string) =>
     text.includes('(') && text.includes('[') && text.includes('{'),
   title: 'Must contain a (,a [ and a {',
+  id: 'all-kind-para',
 });
 
 export default useParentheseManyTypesRule;

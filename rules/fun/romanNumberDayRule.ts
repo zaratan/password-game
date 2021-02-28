@@ -38,6 +38,8 @@ const useRomanNumberDayRule: () => RuleType = () => ({
   valid: false,
   checkFn: (text: string) => text.includes(RomanDays[new Date().getDate()]),
   title: 'Must contain current day of the month in Roman numbers',
+  id: 'roman-numeral',
+  never: ['not-same-char-contiguous'],
 });
 
 export default useRomanNumberDayRule;

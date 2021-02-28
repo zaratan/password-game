@@ -1,3 +1,5 @@
+import useParentheseManyTypesRule from '../easy/parentheseManyTypesRule';
+import useParentheseNonContiguousRule from '../easy/parentheseNonContiguousRule';
 import RuleType from '../RuleType';
 
 const useMatchingParentheseRule: () => RuleType = () => ({
@@ -24,6 +26,8 @@ const useMatchingParentheseRule: () => RuleType = () => ({
     return resArray.length === 0;
   },
   title: 'Need to have balanced }, ] and )',
+  id: 'matching-para',
+  always: [useParentheseManyTypesRule, useParentheseNonContiguousRule],
 });
 
 export default useMatchingParentheseRule;

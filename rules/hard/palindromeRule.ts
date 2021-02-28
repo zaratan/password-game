@@ -6,6 +6,7 @@ const usePalindromeRule: () => RuleType = () => ({
   checkFn: (text: string) =>
     reverse(text.split('')).join() === text.split('').join(),
   title: 'Must be a palindrome',
+  id: 'palindrome',
 });
 
 export default usePalindromeRule;

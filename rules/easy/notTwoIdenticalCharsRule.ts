@@ -9,6 +9,8 @@ const useNotTwoIdenticalCharsRule: () => RuleType = () => ({
     );
   },
   title: 'Must not contains two contiguous identical letters',
+  id: 'not-same-char-contiguous',
+  never: [],
 });
 
 export default useNotTwoIdenticalCharsRule;

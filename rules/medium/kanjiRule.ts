@@ -7,6 +7,7 @@ const useKanjiRule: () => RuleType = () => ({
   valid: false,
   checkFn: (text: string) => Japanese.test(text) || text.includes('Naruto'),
   title: 'Must contain a japanese character',
+  id: 'japanese-char',
 });
 
 export default useKanjiRule;
