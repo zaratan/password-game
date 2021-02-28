@@ -87,7 +87,7 @@ const PasswordInput = ({
         type={textVisible ? 'text' : 'password'}
         value={value}
         onChange={(e) => changeValue(e.currentTarget.value)}
-        onPaste={(e) => e.preventDefault()}
+        // onPaste={(e) => e.preventDefault()}
         name={`password-${name}`}
         id={`password-${name}`}
         data-lpignore="true"
