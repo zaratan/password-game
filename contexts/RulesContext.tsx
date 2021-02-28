@@ -16,6 +16,8 @@ import useNumberRule from '../rules/standard/numberRule';
 import usePunctuationRule from '../rules/standard/punctuationRule';
 import RuleType from '../rules/RuleType';
 import useRespectRule from '../rules/fun/respectRule';
+import usePalindromeRule from '../rules/fun/palindromeRule';
+import useAnswerToLifeRule from '../rules/fun/answerToLifeRule';
 
 type ContextType = {
   activeRules: Array<RuleType>;
@@ -49,7 +51,8 @@ const StandardRules = [
   useLowcaseRule,
   usePunctuationRule,
 ];
-const FunRules = [useRespectRule];
+const FunRules = [useRespectRule, usePalindromeRule, useAnswerToLifeRule];
+// const HardRules = [];
 
 export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [passwordConfirmText, setPasswordConfirmText] = useState('');
