@@ -1,10 +1,21 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, ReactNode } from 'react';
+import { sampleSize } from 'lodash';
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useCallback,
+} from 'react';
+import useCapRule from '../rules/standard/capRule';
 import useConfirmRule from '../rules/confirmRule';
-import useLengthRule from '../rules/lengthRule';
-import useNumberRule from '../rules/numberRule';
+import useLengthRule from '../rules/standard/lengthRule';
+import useLowcaseRule from '../rules/standard/lowcaseRule';
+import useNumberRule from '../rules/standard/numberRule';
+import usePunctuationRule from '../rules/standard/punctuationRule';
 import RuleType from '../rules/RuleType';
+import useRespectRule from '../rules/fun/respectRule';
 
 type ContextType = {
   activeRules: Array<RuleType>;
@@ -31,22 +42,38 @@ const defaultContext: ContextType = {
 };
 
 const RulesContext = createContext(defaultContext);
+const StandardRules = [
+  useNumberRule,
+  useCapRule,
+  useLengthRule,
+  useLowcaseRule,
+  usePunctuationRule,
+];
+const FunRules = [useRespectRule];
 
 export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [passwordConfirmText, setPasswordConfirmText] = useState('');
-  const lengthRule = useLengthRule();
 
-  const confirmRule = useConfirmRule(passwordConfirmText);
+  const confirmRule = useConfirmRule();
   const [confirmable, setConfirmable] = useState(false);
 
-  const numberRule = useNumberRule();
-  const [activeRules, setActiveRules] = useState([lengthRule]);
-  const [unusedRules, setUnusedRules] = useState([confirmRule, numberRule]);
+  const [activeRules, setActiveRules] = useState([]);
+  const [unusedRules, setUnusedRules] = useState([]);
 
-  const resetRules = () => {
-    setActiveRules([lengthRule]);
-    setUnusedRules([confirmRule, numberRule]);
-  };
+  const resetRules = useCallback(() => {
+    const [act, ...unused] = [
+      ...sampleSize(StandardRules, 4).map((e) => e()),
+      ...sampleSize(FunRules, 1).map((e) => e()),
+      confirmRule,
+    ];
+    setActiveRules([act]);
+    setUnusedRules(unused);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    resetRules();
+  }, [resetRules]);
 
   const checkNewPassword = (text: string, confirm?: string) => {
     let result = true;

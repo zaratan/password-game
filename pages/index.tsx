@@ -1,11 +1,10 @@
 import Head from 'next/head';
-import React, { useContext } from 'react';
+import React from 'react';
 import Form from '../components/Form';
+import Rules from '../components/Rules';
 import Timer from '../components/Timer';
-import RulesContext from '../contexts/RulesContext';
 
 export default function Home() {
-  const { activeRules } = useContext(RulesContext);
   return (
     <div className="container mx-auto h-screen flex flex-col justify-between items-center">
       <Head>
@@ -20,13 +19,7 @@ export default function Home() {
         </section>
         <aside className="pb-5 md:pb-0 md:pl-5">
           <Timer />
-          <ul>
-            {activeRules.map((activeRule) => (
-              <li>
-                {activeRule.title}:{activeRule.valid ? 'OK' : 'NOK'}
-              </li>
-            ))}
-          </ul>
+          <Rules />
         </aside>
       </main>
 

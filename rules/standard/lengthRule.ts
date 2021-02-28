@@ -1,4 +1,4 @@
-import RuleType from './RuleType';
+import RuleType from '../RuleType';
 
 const useLengthRule: () => RuleType = () => ({
   valid: false,

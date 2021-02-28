@@ -96,6 +96,7 @@ const PasswordInput = ({
         onClick={toggleTextVisibility}
         type="button"
         className="absolute flex justify-between items-center w-6 h-full right-14 focus:outline-none"
+        tabIndex={-1}
       >
         {textVisible ? <EyeClosed /> : <EyeOpen />}
       </button>
