@@ -12,6 +12,7 @@ type ContextType = {
   passwordConfirmText: string;
   setPasswordConfirmText: (newConfirm: string) => void;
   confirmable: boolean;
+  resetRules: () => void;
 };
 
 const defaultContext: ContextType = {
@@ -24,6 +25,9 @@ const defaultContext: ContextType = {
     throw new Error('SHOULD BE OVERRIDEN');
   },
   confirmable: false,
+  resetRules: () => {
+    throw new Error('SHOULD BE OVERRIDEN');
+  },
 };
 
 const RulesContext = createContext(defaultContext);
@@ -38,6 +42,11 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const numberRule = useNumberRule();
   const [activeRules, setActiveRules] = useState([lengthRule]);
   const [unusedRules, setUnusedRules] = useState([confirmRule, numberRule]);
+
+  const resetRules = () => {
+    setActiveRules([lengthRule]);
+    setUnusedRules([confirmRule, numberRule]);
+  };
 
   const checkNewPassword = (text: string, confirm?: string) => {
     let result = true;
@@ -79,6 +88,7 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
     passwordConfirmText,
     setPasswordConfirmText,
     confirmable,
+    resetRules,
   };
 
   return (

@@ -20,14 +20,16 @@ const FromWrap = ({
 }) => {
   const { registerNewTime } = useContext(ScoreContext);
   const { time, resetTime } = useContext(TimeContext);
+  const { resetRules } = useContext(RulesContext);
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (valid) {
       registerNewTime(time);
       resetTime();
-      changeConfirm('');
       changePassword('');
+      changeConfirm('');
+      resetRules();
     }
   };
   return <form onSubmit={submit}>{children}</form>;

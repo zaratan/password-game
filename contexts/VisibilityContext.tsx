@@ -6,8 +6,6 @@ type ContextType = {
   togglePasswordVisible: () => void;
   confirmationVisible: boolean;
   toggleConfirmationVisible: () => void;
-  registerNewTime: (newTime: number) => void;
-  bestTime?: number;
 };
 
 const defaultContext: ContextType = {
@@ -19,21 +17,12 @@ const defaultContext: ContextType = {
   toggleConfirmationVisible: () => {
     throw new Error('SHOULD BE OVERRIDEN');
   },
-  bestTime: null,
-  registerNewTime: () => {
-    throw new Error('SHOULD BE OVERRIDEN');
-  },
 };
-const ScoreContext = createContext(defaultContext);
+const VisibilityContext = createContext(defaultContext);
 
-export const ScoreProvider = ({ children }: { children: ReactNode }) => {
+export const VisibilityProvider = ({ children }: { children: ReactNode }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
-  const [bestTime, setBestTime] = useState(null);
-
-  const registerNewTime = (newTime: number) => {
-    if (!bestTime || bestTime > newTime) setBestTime(newTime);
-  };
   const togglePasswordVisible = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -47,13 +36,13 @@ export const ScoreProvider = ({ children }: { children: ReactNode }) => {
     passwordVisible,
     toggleConfirmationVisible,
     togglePasswordVisible,
-    bestTime,
-    registerNewTime,
   };
 
   return (
-    <ScoreContext.Provider value={context}>{children}</ScoreContext.Provider>
+    <VisibilityContext.Provider value={context}>
+      {children}
+    </VisibilityContext.Provider>
   );
 };
 
-export default ScoreContext;
+export default VisibilityContext;
