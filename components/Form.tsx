@@ -10,8 +10,12 @@ import Submit from './Submit';
 const FromWrap = ({
   valid,
   children,
+  changeConfirm,
+  changePassword,
 }: {
   valid: boolean;
+  changePassword: (text: string) => void;
+  changeConfirm: (text: string) => void;
   children: ReactNode;
 }) => {
   const { registerNewTime } = useContext(ScoreContext);
@@ -22,6 +26,8 @@ const FromWrap = ({
     if (valid) {
       registerNewTime(time);
       resetTime();
+      changeConfirm('');
+      changePassword('');
     }
   };
   return <form onSubmit={submit}>{children}</form>;
@@ -55,7 +61,11 @@ const Form = () => {
   };
 
   return (
-    <FromWrap valid={valid}>
+    <FromWrap
+      valid={valid}
+      changeConfirm={changeConfirm}
+      changePassword={changePassword}
+    >
       {/* Prevents browser autofill */}
       <input type="text" className="w-0 h-0 absolute left-0 top-0 invisible" />
       <input

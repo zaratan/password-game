@@ -90,24 +90,22 @@ const PasswordInput = ({
         name={`password-${name}`}
         id={`password-${name}`}
         data-lpignore="true"
-        className="flex-grow p-2 shadow-sm rounded border-solid border-gray-300 border"
+        className="flex-grow p-2 mr-2 shadow-sm rounded border-solid border-gray-300 border"
       />
       <button
         onClick={toggleTextVisibility}
         type="button"
-        className="absolute flex justify-between items-center w-6 h-full right-12"
+        className="absolute flex justify-between items-center w-6 h-full right-14 focus:outline-none"
       >
         {textVisible ? <EyeClosed /> : <EyeOpen />}
       </button>
-      <span className="text-red-600 flex items-center justify-between w-11">
-        {textVisible ? (
-          <>
-            <Timer />
-            <span>{`x${visibleMultiplicator}`}</span>
-          </>
-        ) : (
-          ''
-        )}
+      <span
+        className={`${
+          textVisible ? 'text-red-600' : ''
+        } flex items-center justify-between w-11`}
+      >
+        <Timer />
+        <span>{`x${textVisible ? visibleMultiplicator : 1}`}</span>
       </span>
     </div>
   </div>
