@@ -23,7 +23,7 @@ const useMatchingParentheseRule: () => RuleType = () => ({
     }, []);
     return resArray.length === 0;
   },
-  title: 'Need to have a balanced }, ] and )',
+  title: 'Need to have balanced }, ] and )',
 });
 
 export default useMatchingParentheseRule;
