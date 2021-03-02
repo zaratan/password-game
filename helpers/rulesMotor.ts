@@ -1,7 +1,7 @@
 import { sampleSize, shuffle, uniq } from 'lodash';
 import useConfirmRule from '../rules/confirmRule';
 import useCurrentYearRule from '../rules/easy/currentYearRule';
-import useNotTwoIdenticalCharsRule from '../rules/easy/notTwoIdenticalCharsRule';
+import useNotTwoIdenticalCharsRule from '../rules/backward/notTwoIdenticalCharsRule';
 import useParentheseManyTypesRule from '../rules/easy/parentheseManyTypesRule';
 import useParentheseNonContiguousRule from '../rules/easy/parentheseNonContiguousRule';
 import useAnswerToLifeRule from '../rules/fun/answerToLifeRule';
@@ -14,6 +14,7 @@ import useTurtleRule from '../rules/fun/turtleRule';
 import useXKCDRule from '../rules/fun/xkcdRule';
 import useMatchingParentheseRule from '../rules/hard/matchingParentheseRule';
 import usePalindromeRule from '../rules/hard/palindromeRule';
+import useCaptchaMathRule from '../rules/medium/captchaMathRule';
 import useCaptchaRule from '../rules/medium/captchaRule';
 import useCurrentMinutesRule from '../rules/medium/currentMinutesRule';
 import useKanjiRule from '../rules/medium/kanjiRule';
@@ -24,6 +25,8 @@ import useLengthRule from '../rules/standard/lengthRule';
 import useLowcaseRule from '../rules/standard/lowcaseRule';
 import useNumberRule from '../rules/standard/numberRule';
 import usePunctuationRule from '../rules/standard/punctuationRule';
+import useBackParentheseRule from '../rules/backward/backParentheseRule';
+import useNumberMustEndByRule from '../rules/backward/numberMustEndByRule';
 
 const StandardRules = [
   useNumberRule,
@@ -47,8 +50,13 @@ const FunRules = [
 const EasyRules = [
   useParentheseManyTypesRule,
   useParentheseNonContiguousRule,
-  useNotTwoIdenticalCharsRule,
   useCurrentYearRule,
+];
+
+const BackwardRules = [
+  useNotTwoIdenticalCharsRule,
+  useBackParentheseRule,
+  useNumberMustEndByRule,
 ];
 
 const HardRules = [
@@ -62,6 +70,7 @@ const MediumRules = [
   useKanjiRule,
   usePiDecimalRule,
   useCaptchaRule,
+  useCaptchaMathRule,
 ];
 
 const computeNevers = (rules: Array<RuleType>) =>
@@ -89,6 +98,7 @@ export const fetchNewRules = async (
   {
     standard,
     easy,
+    backward,
     fun,
     hard,
     medium,
@@ -97,6 +107,7 @@ export const fetchNewRules = async (
     standard?: number;
     fun?: number;
     easy?: number;
+    backward?: number;
     medium?: number;
     hard?: number;
     options?: { shuffle?: boolean };
@@ -143,6 +154,19 @@ export const fetchNewRules = async (
     finalRules = [
       ...finalRules,
       ...sampleSize(removeNevers(mediumRules, nevers), 4),
+    ];
+    nevers = computeNevers(finalRules);
+  }
+  if (Number(backward) > 0) {
+    finalRules = [
+      ...finalRules,
+      ...sampleSize(
+        removeNevers(
+          BackwardRules.map((e) => e()),
+          nevers
+        ),
+        backward
+      ),
     ];
     nevers = computeNevers(finalRules);
   }
