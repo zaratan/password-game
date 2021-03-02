@@ -47,6 +47,7 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
       standard: 3,
       easy: 2,
       fun: 3,
+      backward: 1,
       medium: 2,
       hard: 1,
       options: { shuffle: true },
