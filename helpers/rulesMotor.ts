@@ -26,6 +26,7 @@ import useLowcaseRule from '../rules/standard/lowcaseRule';
 import useNumberRule from '../rules/standard/numberRule';
 import usePunctuationRule from '../rules/standard/punctuationRule';
 import useBackParentheseRule from '../rules/backward/backParentheseRule';
+import useNumberMustEndByRule from '../rules/backward/numberMustEndByRule';
 
 const StandardRules = [
   useNumberRule,
@@ -52,7 +53,11 @@ const EasyRules = [
   useCurrentYearRule,
 ];
 
-const BackwardRules = [useNotTwoIdenticalCharsRule, useBackParentheseRule];
+const BackwardRules = [
+  useNotTwoIdenticalCharsRule,
+  useBackParentheseRule,
+  useNumberMustEndByRule,
+];
 
 const HardRules = [
   useMatchingParentheseRule,
