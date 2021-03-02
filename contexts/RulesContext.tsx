@@ -42,8 +42,8 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [activeRules, setActiveRules] = useState([]);
   const [unusedRules, setUnusedRules] = useState([]);
 
-  const resetRules = useCallback(() => {
-    const [act, ...unused] = fetchNewRules({
+  const resetRules = useCallback(async () => {
+    const [act, ...unused] = await fetchNewRules({
       standard: 3,
       easy: 2,
       fun: 3,

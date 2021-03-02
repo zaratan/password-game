@@ -14,6 +14,7 @@ import useTurtleRule from '../rules/fun/turtleRule';
 import useXKCDRule from '../rules/fun/xkcdRule';
 import useMatchingParentheseRule from '../rules/hard/matchingParentheseRule';
 import usePalindromeRule from '../rules/hard/palindromeRule';
+import useCaptchaRule from '../rules/medium/captchaRule';
 import useCurrentMinutesRule from '../rules/medium/currentMinutesRule';
 import useKanjiRule from '../rules/medium/kanjiRule';
 import usePiDecimalRule from '../rules/medium/piDecimalRule';
@@ -56,7 +57,12 @@ const HardRules = [
   useConfirmRule,
 ];
 
-const MediumRules = [useCurrentMinutesRule, useKanjiRule, usePiDecimalRule];
+const MediumRules = [
+  useCurrentMinutesRule,
+  useKanjiRule,
+  usePiDecimalRule,
+  useCaptchaRule,
+];
 
 const computeNevers = (rules: Array<RuleType>) =>
   uniq(
@@ -79,7 +85,7 @@ const addAlways = (rules: Array<RuleType>) => {
   ];
 };
 
-export const fetchNewRules = (
+export const fetchNewRules = async (
   {
     standard,
     easy,
@@ -133,15 +139,10 @@ export const fetchNewRules = (
     nevers = computeNevers(finalRules);
   }
   if (Number(medium) > 0) {
+    const mediumRules = await Promise.all(MediumRules.map((e) => e()));
     finalRules = [
       ...finalRules,
-      ...sampleSize(
-        removeNevers(
-          MediumRules.map((e) => e()),
-          nevers
-        ),
-        medium
-      ),
+      ...sampleSize(removeNevers(mediumRules, nevers), 4),
     ];
     nevers = computeNevers(finalRules);
   }
@@ -161,6 +162,8 @@ export const fetchNewRules = (
 
   finalRules = removeNevers(finalRules, nevers);
   finalRules = addAlways(finalRules);
+
+  console.log({ finalRules });
 
   return options.shuffle
     ? [...standardRules, ...shuffle(finalRules)]

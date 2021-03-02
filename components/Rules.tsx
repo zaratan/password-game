@@ -37,9 +37,14 @@ const Cross = () => (
 );
 
 const Rule = ({ rule }: { rule: RuleType }) => (
-  <li className="flex items-center">
-    {rule.valid ? <Check /> : <Cross />}
-    {rule.title}
+  <li className="flex flex-col justify-between w-full" key={rule.id}>
+    <div className="flex items-center">
+      {rule.valid ? <Check /> : <Cross />}
+      {rule.title}
+    </div>
+    {rule.component ? (
+      <div className="w-full pt-1 left-5 relative">{rule.component}</div>
+    ) : null}
   </li>
 );
 
@@ -48,7 +53,7 @@ const Rules = () => {
   return (
     <ul className="border-t pt-3 mt-3">
       {activeRules.map((rule) => (
-        <Rule rule={rule} />
+        <Rule rule={rule} key={rule.id} />
       ))}
     </ul>
   );
