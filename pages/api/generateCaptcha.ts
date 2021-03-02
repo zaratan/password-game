@@ -12,7 +12,6 @@ const generateCaptcha = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     res.status(200).json(newCaptcha);
   } catch (error) {
-    console.error(error);
     res.status(error.status || 500).end(error.message);
   }
 };
