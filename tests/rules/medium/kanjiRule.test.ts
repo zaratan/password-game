@@ -2,7 +2,7 @@ import useKanjiRule from '../../../rules/medium/kanjiRule';
 
 const { checkFn } = useKanjiRule();
 
-describe('Kanji rule', () => {
+describe('Rule: Must contain a japanese char', () => {
   test('works with Kanji', () => {
     expect(checkFn('a元.')).toBeTruthy();
   });

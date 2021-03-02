@@ -2,7 +2,7 @@ import useNumberMustEndByRule from '../../../rules/backward/numberMustEndByRule'
 
 const { checkFn } = useNumberMustEndByRule();
 
-describe('All numbers must end by 0 rule', () => {
+describe('Rule: All numbers must end by 0 rule', () => {
   test('works with one number', () => {
     expect(checkFn('aaa120aaa')).toBeTruthy();
     expect(checkFn('aaa120')).toBeTruthy();
