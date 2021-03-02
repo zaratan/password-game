@@ -27,6 +27,9 @@ import useNumberRule from '../rules/standard/numberRule';
 import usePunctuationRule from '../rules/standard/punctuationRule';
 import useBackParentheseRule from '../rules/backward/backParentheseRule';
 import useNumberMustEndByRule from '../rules/backward/numberMustEndByRule';
+import useNumberPlanetRule from '../rules/fun/numberPlanetRule';
+import usePrimeNumberRule from '../rules/easy/primeNumberRule';
+import useNumberOfTheBeastRule from '../rules/fun/numberOfTheBeastRule';
 
 const StandardRules = [
   useNumberRule,
@@ -45,12 +48,15 @@ const FunRules = [
   useXKCDRule,
   useLostTheGameRule,
   useFirstFourCreditCardRule,
+  useNumberPlanetRule,
+  useNumberOfTheBeastRule,
 ];
 
 const EasyRules = [
   useParentheseManyTypesRule,
   useParentheseNonContiguousRule,
   useCurrentYearRule,
+  usePrimeNumberRule,
 ];
 
 const BackwardRules = [
