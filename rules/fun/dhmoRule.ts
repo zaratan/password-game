@@ -3,7 +3,7 @@ import RuleType from '../RuleType';
 const useDHMORule: () => RuleType = () => ({
   valid: false,
   checkFn: (text: string) => /(dhmo)|(h2o)|(eau)|(water)/i.test(text),
-  title: 'must contain a simpler name for Dihydrogen monoxide',
+  title: 'Must contain a simpler name for Dihydrogen monoxide',
   id: 'dhmo',
 });
 
