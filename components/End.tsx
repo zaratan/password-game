@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import RulesContext from '../contexts/RulesContext';
 import ScoreContext from '../contexts/ScoreContext';
 import StateContext from '../contexts/StateContext';
 import TimeContext from '../contexts/TimeContext';
 import { millisecToMinSec } from '../helpers/timeHelpers';
-import Timer from './Timer';
 
 const End = () => {
   const { setState } = useContext(StateContext);

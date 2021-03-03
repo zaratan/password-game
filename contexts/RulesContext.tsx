@@ -1,12 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, {
-  createContext,
-  useState,
-  ReactNode,
-  useEffect,
-  useCallback,
-} from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 import RuleType from '../rules/RuleType';
 import { fetchNewRules } from '../helpers/rulesMotor';
 

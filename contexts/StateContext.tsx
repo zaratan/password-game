@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode } from 'react';
 
 /*
 This state machine is for now very simple. If needed:

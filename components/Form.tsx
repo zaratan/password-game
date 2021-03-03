@@ -1,11 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, {
-  ReactNode,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import RulesContext from '../contexts/RulesContext';
 import ScoreContext from '../contexts/ScoreContext';
 import StateContext from '../contexts/StateContext';
