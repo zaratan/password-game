@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const EyeOpen = () => (
   <svg
@@ -65,6 +65,8 @@ const PasswordInput = ({
   value,
   changeValue,
   visibleMultiplicator,
+  focusOnLoad,
+  placeholder,
 }: {
   name: string;
   label: string;
@@ -73,44 +75,57 @@ const PasswordInput = ({
   value: string;
   changeValue: (newValue: string) => void;
   visibleMultiplicator: number;
-}) => (
-  <div className="grid grid-cols-last-grow gap-2 mb-2">
-    <label
-      className="pb-1 md:pb-0 md:pr-4 my-auto"
-      htmlFor={`password-${name}`}
-    >
-      {label}
-    </label>
-    <div className="flex justify-between relative">
-      {/* data-lpignore prevents lastpass icon */}
-      <input
-        type={textVisible ? 'text' : 'password'}
-        value={value}
-        onChange={(e) => changeValue(e.currentTarget.value)}
-        // onPaste={(e) => e.preventDefault()}
-        name={`password-${name}`}
-        id={`password-${name}`}
-        data-lpignore="true"
-        className="flex-grow p-2 mr-2 shadow-sm rounded border-solid border-gray-300 border"
-      />
-      <button
-        onClick={toggleTextVisibility}
-        type="button"
-        className="absolute flex justify-between items-center w-6 h-full right-14 focus:outline-none"
-        tabIndex={-1}
+  focusOnLoad?: boolean;
+  placeholder?: string;
+}) => {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!focusOnLoad) return;
+    inputRef.current.focus();
+  }, [focusOnLoad]);
+
+  return (
+    <div className="grid grid-cols-last-grow gap-2 mb-2">
+      <label
+        className="pb-1 md:pb-0 md:pr-4 my-auto"
+        htmlFor={`password-${name}`}
       >
-        {textVisible ? <EyeClosed /> : <EyeOpen />}
-      </button>
-      <span
-        className={`${
-          textVisible ? 'text-red-600' : ''
-        } flex items-center justify-between w-11`}
-      >
-        <Timer />
-        <span>{`x${textVisible ? visibleMultiplicator : 1}`}</span>
-      </span>
+        {label}
+      </label>
+      <div className="flex justify-between relative">
+        {/* data-lpignore prevents lastpass icon */}
+        <input
+          type={textVisible ? 'text' : 'password'}
+          value={value}
+          onChange={(e) => changeValue(e.currentTarget.value)}
+          // onPaste={(e) => e.preventDefault()}
+          name={`password-${name}`}
+          id={`password-${name}`}
+          data-lpignore="true"
+          ref={inputRef}
+          placeholder={placeholder}
+          className="flex-grow p-2 mr-2 shadow-sm rounded border-solid border-gray-300 border"
+        />
+        <button
+          onClick={toggleTextVisibility}
+          type="button"
+          className="absolute flex justify-between items-center w-6 h-full right-14 focus:outline-none"
+          tabIndex={-1}
+        >
+          {textVisible ? <EyeClosed /> : <EyeOpen />}
+        </button>
+        <span
+          className={`${
+            textVisible ? 'text-red-600' : ''
+          } flex items-center justify-between w-11`}
+        >
+          <Timer />
+          <span>{`x${textVisible ? visibleMultiplicator : 1}`}</span>
+        </span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default PasswordInput;

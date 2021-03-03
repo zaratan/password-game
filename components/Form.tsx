@@ -1,7 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { ReactNode, useContext, useState } from 'react';
+import React, {
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import RulesContext from '../contexts/RulesContext';
 import ScoreContext from '../contexts/ScoreContext';
+import StateContext from '../contexts/StateContext';
 import TimeContext from '../contexts/TimeContext';
 import PasswordInput from './PasswordInput';
 import Submit from './Submit';
@@ -19,18 +26,18 @@ const FromWrap = ({
   children: ReactNode;
 }) => {
   const { registerNewTime, setConfirmationVisible } = useContext(ScoreContext);
-  const { time, resetTime } = useContext(TimeContext);
-  const { resetRules } = useContext(RulesContext);
+  const { time, stopTime } = useContext(TimeContext);
+  const { setState } = useContext(StateContext);
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (valid) {
+      stopTime();
       registerNewTime(time);
-      resetTime();
       changePassword('');
       changeConfirm('');
       setConfirmationVisible(false);
-      resetRules();
+      setState('end');
     }
   };
   return <form onSubmit={submit}>{children}</form>;
@@ -83,6 +90,7 @@ const Form = () => {
         value={textValue}
         toggleTextVisibility={togglePasswordVisible}
         visibleMultiplicator={4}
+        focusOnLoad
       />
       {confirmable ? (
         <PasswordInput

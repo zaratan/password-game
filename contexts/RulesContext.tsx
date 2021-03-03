@@ -16,7 +16,7 @@ type ContextType = {
   passwordConfirmText: string;
   setPasswordConfirmText: (newConfirm: string) => void;
   confirmable: boolean;
-  resetRules: () => void;
+  resetRules: () => Promise<void>;
 };
 
 const defaultContext: ContextType = {
@@ -42,7 +42,7 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [activeRules, setActiveRules] = useState([]);
   const [unusedRules, setUnusedRules] = useState([]);
 
-  const resetRules = useCallback(async () => {
+  const resetRules = async () => {
     const [act, ...unused] = await fetchNewRules({
       standard: 3,
       easy: 2,
@@ -54,11 +54,7 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
     });
     setActiveRules([act]);
     setUnusedRules(unused);
-  }, []);
-
-  useEffect(() => {
-    resetRules();
-  }, [resetRules]);
+  };
 
   const checkNewPassword = (text: string, confirm?: string) => {
     let result = true;

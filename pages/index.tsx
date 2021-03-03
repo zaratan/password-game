@@ -1,12 +1,31 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useContext } from 'react';
+import End from '../components/End';
 import Footer from '../components/Footer';
-import Form from '../components/Form';
+import Game from '../components/Game';
 import Header from '../components/Header';
-import Rules from '../components/Rules';
-import Timer from '../components/Timer';
+import Start from '../components/Start';
+import StateContext from '../contexts/StateContext';
 
 export default function Home() {
+  const { state } = useContext(StateContext);
+
+  let MainComponent;
+  switch (state) {
+    case 'start':
+      MainComponent = Start;
+      break;
+    case 'game':
+      MainComponent = Game;
+      break;
+    case 'end':
+      MainComponent = End;
+      break;
+    default:
+      MainComponent = Start;
+      break;
+  }
+
   return (
     <div className="container mx-auto h-screen flex flex-col justify-between items-center">
       <Head>
@@ -14,17 +33,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-
-      <main className="flex w-full flex-col-reverse md:flex-row px-8 md:px-0">
-        <section className="md:w-2/3 lg:w-1/2 md:max-w-lg md:p-4 md:pr-5 border-t pt-5 md:pt-0 md:border-t-0 md:border-r border-solid">
-          <Form />
-        </section>
-        <aside className="pb-5 md:pb-0 md:pl-5">
-          <Timer />
-          <Rules />
-        </aside>
-      </main>
-
+      <MainComponent />
       <Footer />
     </div>
   );

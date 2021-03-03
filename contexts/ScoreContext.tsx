@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 
 type ContextType = {
   passwordVisible: boolean;
@@ -28,15 +28,28 @@ const defaultContext: ContextType = {
     throw new Error('SHOULD BE OVERRIDEN');
   },
 };
+
 const ScoreContext = createContext(defaultContext);
+
+const lsBestScoreKey = 'passwordGame:best-score';
 
 export const ScoreProvider = ({ children }: { children: ReactNode }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [bestTime, setBestTime] = useState(null);
 
+  useEffect(() => {
+    const lsBest = localStorage.getItem(lsBestScoreKey);
+    if (lsBest) {
+      setBestTime(JSON.parse(lsBest));
+    }
+  }, []);
+
   const registerNewTime = (newTime: number) => {
-    if (!bestTime || bestTime > newTime) setBestTime(newTime);
+    if (!bestTime || bestTime > newTime) {
+      setBestTime(newTime);
+      localStorage.setItem(lsBestScoreKey, JSON.stringify(newTime));
+    }
   };
   const togglePasswordVisible = () => {
     setPasswordVisible(!passwordVisible);
