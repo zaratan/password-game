@@ -30,6 +30,10 @@ export default function Home() {
     <div className="container mx-auto h-screen flex flex-col justify-between items-center">
       <Head>
         <title>Password Game</title>
+        <meta
+          name="description"
+          content="Filling passwords with silly constraints."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
