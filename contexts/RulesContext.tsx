@@ -1,8 +1,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
 import RuleType from '../rules/RuleType';
 import { fetchNewRules } from '../helpers/rulesMotor';
+import LevelContext from './LevelContext';
 
 type ContextType = {
   activeRules: Array<RuleType>;
@@ -36,16 +37,10 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
   const [activeRules, setActiveRules] = useState([]);
   const [unusedRules, setUnusedRules] = useState([]);
 
+  const { currentLevel } = useContext(LevelContext);
+
   const resetRules = async () => {
-    const [act, ...unused] = await fetchNewRules({
-      standard: 3,
-      easy: 2,
-      fun: 3,
-      backward: 1,
-      medium: 2,
-      hard: 1,
-      options: { shuffle: true },
-    });
+    const [act, ...unused] = await fetchNewRules(currentLevel.distribution);
     setActiveRules([act]);
     setUnusedRules(unused);
   };
