@@ -1,5 +1,5 @@
 import { sampleSize, shuffle, uniq } from 'lodash';
-import useConfirmRule from '../rules/confirmRule';
+import useConfirmRule from '../rules/hard/confirmRule';
 import useCurrentYearRule from '../rules/easy/currentYearRule';
 import useNotTwoIdenticalCharsRule from '../rules/backward/notTwoIdenticalCharsRule';
 import useParentheseManyTypesRule from '../rules/easy/parentheseManyTypesRule';
@@ -100,6 +100,16 @@ const addAlways = (rules: Array<RuleType>) => {
   ];
 };
 
+export type RuleDistributionType = {
+  standard?: number;
+  fun?: number;
+  easy?: number;
+  backward?: number;
+  medium?: number;
+  hard?: number;
+  options?: { shuffle?: boolean };
+};
+
 export const fetchNewRules = async (
   {
     standard,
@@ -109,15 +119,7 @@ export const fetchNewRules = async (
     hard,
     medium,
     options = { shuffle: true },
-  }: {
-    standard?: number;
-    fun?: number;
-    easy?: number;
-    backward?: number;
-    medium?: number;
-    hard?: number;
-    options?: { shuffle?: boolean };
-  } = { standard: 3, options: { shuffle: true } }
+  }: RuleDistributionType = { standard: 3, options: { shuffle: true } }
 ) => {
   let nevers: Array<string> = [];
   let finalRules: Array<RuleType> = [];

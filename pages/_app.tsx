@@ -2,6 +2,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import 'tailwindcss/tailwind.css';
+import { LevelProvider } from '../contexts/LevelContext';
 import { RulesProvider } from '../contexts/RulesContext';
 import { ScoreProvider } from '../contexts/ScoreContext';
 import { StateProvider } from '../contexts/StateContext';
@@ -17,13 +18,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <StateProvider>
-        <ScoreProvider>
-          <RulesProvider>
-            <TimeProvider>
-              <Component {...pageProps} />
-            </TimeProvider>
-          </RulesProvider>
-        </ScoreProvider>
+        <LevelProvider>
+          <ScoreProvider>
+            <RulesProvider>
+              <TimeProvider>
+                <Component {...pageProps} />
+              </TimeProvider>
+            </RulesProvider>
+          </ScoreProvider>
+        </LevelProvider>
       </StateProvider>
     </>
   );

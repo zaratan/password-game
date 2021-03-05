@@ -6,7 +6,7 @@ const Footer = () => (
       <span>
         Made with
         <span
-          className="transition-colors hover:text-red-500 mx-1"
+          className="transition-colors hover:text-red-500 duration-5000 ease-in-out hover:duration-200 mx-1"
           style={{ cursor: 'grab' }}
         >
           ♥

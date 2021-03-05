@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import React, {
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+  useContext,
+} from 'react';
+import LevelContext from './LevelContext';
 
 type ContextType = {
   passwordVisible: boolean;
@@ -36,19 +43,22 @@ const lsBestScoreKey = 'passwordGame:best-score';
 export const ScoreProvider = ({ children }: { children: ReactNode }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
-  const [bestTime, setBestTime] = useState(null);
+  const [bestTime, setBestTime] = useState({});
+  const { currentLevel } = useContext(LevelContext);
+  const levelBestTime = bestTime[currentLevel.id];
 
   useEffect(() => {
     const lsBest = localStorage.getItem(lsBestScoreKey);
-    if (lsBest) {
+    if (lsBest && typeof JSON.parse(lsBest) !== 'number') {
       setBestTime(JSON.parse(lsBest));
     }
   }, []);
 
   const registerNewTime = (newTime: number) => {
-    if (!bestTime || bestTime > newTime) {
-      setBestTime(newTime);
-      localStorage.setItem(lsBestScoreKey, JSON.stringify(newTime));
+    if (!levelBestTime || levelBestTime > newTime) {
+      const newBest = { ...bestTime, [currentLevel.id]: newTime };
+      setBestTime(newBest);
+      localStorage.setItem(lsBestScoreKey, JSON.stringify(newBest));
     }
   };
   const togglePasswordVisible = () => {
@@ -65,7 +75,7 @@ export const ScoreProvider = ({ children }: { children: ReactNode }) => {
     toggleConfirmationVisible,
     setConfirmationVisible,
     togglePasswordVisible,
-    bestTime,
+    bestTime: levelBestTime,
     registerNewTime,
   };
 

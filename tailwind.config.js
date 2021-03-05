@@ -6,10 +6,22 @@ module.exports = {
       gridTemplateColumns: {
         'last-grow': '100px 1fr',
       },
+      transitionDuration: {
+        5000: '5s',
+      },
+      width: {
+        '3/2': '150%',
+        130: '32.5rem',
+      },
+      height: {
+        84: '21rem',
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      transitionDuration: ['hover'],
+    },
   },
   plugins: [],
 };
