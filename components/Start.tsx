@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import RulesContext from '../contexts/RulesContext';
 import StateContext from '../contexts/StateContext';
 import TimeContext from '../contexts/TimeContext';
-import Explaination from './Explaination';
+import Explanation from './Explanation';
 import LevelSlider from './LevelSlider';
 
 const StartButton = () => {
@@ -29,7 +29,7 @@ const StartButton = () => {
 const Start = () => (
   <div className="space-y-6 px-4 md:px-0 md:w-130 max-w-lg">
     <div className="flex flex-col">
-      <Explaination />
+      <Explanation />
       <LevelSlider />
     </div>
     <StartButton />

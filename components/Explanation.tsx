@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Explaination = ({ small }: { small?: boolean }) => (
+const Explanation = ({ small }: { small?: boolean }) => (
   <div
     className={
       small
@@ -9,7 +9,7 @@ const Explaination = ({ small }: { small?: boolean }) => (
     }
   >
     <p className="mt-3 max-w-4xl">
-      This is an idea from Joel Califa's original{' '}
+      Inspired by Joel Califa's original{' '}
       <a
         href="https://twitter.com/notdetails/status/1201015962398539777?s=21"
         className="text-blue-400 transition-colors hover:text-blue-500"
@@ -19,10 +19,9 @@ const Explaination = ({ small }: { small?: boolean }) => (
       .
     </p>
     <p className="mt-2 max-w-4xl">
-      The game is simple: You must find a valid password in the least amount of
-      time.
+      The game is simple: find a valid password as fast as possible.
     </p>
   </div>
 );
 
-export default Explaination;
+export default Explanation;
