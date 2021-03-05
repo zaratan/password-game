@@ -11,6 +11,7 @@ type ContextType = {
   passwordConfirmText: string;
   setPasswordConfirmText: (newConfirm: string) => void;
   confirmable: boolean;
+  setConfirmable: (isConfirmable: boolean) => void;
   resetRules: () => Promise<void>;
 };
 
@@ -24,6 +25,9 @@ const defaultContext: ContextType = {
     throw new Error('SHOULD BE OVERRIDEN');
   },
   confirmable: false,
+  setConfirmable: () => {
+    throw new Error('SHOULD BE OVERRIDEN');
+  },
   resetRules: () => {
     throw new Error('SHOULD BE OVERRIDEN');
   },
@@ -85,6 +89,7 @@ export const RulesProvider = ({ children }: { children: ReactNode }) => {
     passwordConfirmText,
     setPasswordConfirmText,
     confirmable,
+    setConfirmable,
     resetRules,
   };
 

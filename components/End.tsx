@@ -9,18 +9,27 @@ import { millisecToMinSec } from '../helpers/timeHelpers';
 const End = () => {
   const { setState } = useContext(StateContext);
   const { resetTime, time } = useContext(TimeContext);
-  const { bestTime } = useContext(ScoreContext);
-  const { resetRules } = useContext(RulesContext);
+  const { bestTime, setConfirmationVisible, setPasswordVisible } = useContext(
+    ScoreContext
+  );
+  const { resetRules, setConfirmable } = useContext(RulesContext);
   const { currentLevel } = useContext(LevelContext);
+
+  const reset = () => {
+    resetTime();
+    setConfirmationVisible(false);
+    setPasswordVisible(false);
+    setConfirmable(false);
+  };
 
   const clickAction = async () => {
     await resetRules();
-    resetTime();
+    reset();
     setState('game');
   };
 
   const clickChangeLevel = () => {
-    resetTime();
+    reset();
     setState('start');
   };
 
