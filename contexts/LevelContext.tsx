@@ -22,7 +22,7 @@ export const Levels: Array<LevelType> = [
       medium: 2,
     },
     description:
-      'Medium: Banks like to add various weird restrictions on passwords.',
+      'Medium: banks enjoy adding various weird password restrictions.',
   },
   {
     id: 'hard',
@@ -35,7 +35,7 @@ export const Levels: Array<LevelType> = [
       hard: 1,
     },
     description:
-      "Hard: Post office websites aren't always the nicest UX possible. Expect some troubles.",
+      "Hard: post office websites don't always have the nicest UX. Expect trouble.",
   },
   {
     id: 'harder',
@@ -49,7 +49,7 @@ export const Levels: Array<LevelType> = [
       hard: 1,
     },
     description:
-      "Harder: Immigration website is part of the process to successfuly immigrate. If you can't fill their form, stop here.",
+      "Harder: immigration websites are an unavoidable part of the immigration process. If you can't fill out their forms, stop here.",
   },
   {
     id: 'hardest',
@@ -62,7 +62,7 @@ export const Levels: Array<LevelType> = [
       backward: 2,
       hard: 2,
     },
-    description: 'Hardest: Filling taxes is always a "fun" process, isn\'t it?',
+    description: 'Hardest: filing taxes is always a "fun" process, isn\'t it?',
   },
   {
     id: 'hell',
@@ -79,7 +79,7 @@ export const Levels: Array<LevelType> = [
       },
     },
     description:
-      "Hell: Let's face it, those website are made for you to fail using them. Prepare for some suffering.",
+      "Hell: let's face it, those websites set you up to fail. Prepare to suffer.",
   },
 ];
 
