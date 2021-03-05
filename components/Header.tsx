@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import StateContext from '../contexts/StateContext';
-import Explaination from './Explaination';
+import Explanation from './Explanation';
 
 const Header = () => {
   const { state } = useContext(StateContext);
@@ -9,7 +9,7 @@ const Header = () => {
       <h3 className="text-2xl leading-6 font-medium text-gray-900">
         Password Game
       </h3>
-      {state === 'start' ? null : <Explaination small />}
+      {state === 'start' ? null : <Explanation small />}
     </header>
   );
 };
