@@ -32,7 +32,9 @@ const LevelElement = ({ level }: { level: LevelType }) => {
         } transition-all duration-200 bg-green-400 rounded-full absolute`}
       />
       <span
-        className="w-6 h-6 rounded-full bg-gray-200 block  focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className={`w-6 h-6 rounded-full bg-gray-200 block ${
+          currentLevel.id === level.id ? `cursor-default` : `hover:bg-gray-300`
+        } transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300`}
         onClick={clickAction}
         onKeyPress={keyAction}
         tabIndex={0}
